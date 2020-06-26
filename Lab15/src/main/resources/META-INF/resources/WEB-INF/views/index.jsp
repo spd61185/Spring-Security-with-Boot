@@ -12,7 +12,7 @@
 		<div class="card-body">
 			<div class="container" align="center">
 				<h2>
-					<a href='<c:url value="viewBooks"/>' class="btn btn-success btn-lg">View Books</a>
+					<a href='<c:url value="viewBooks"/>' class="btn btn-success btn-lg" >  View Books</a> 
 					<br /><br />
 					<a href='<c:url value="addBook"/>' class="btn btn-success btn-lg">Add Book</a>
 					<br /><br />
