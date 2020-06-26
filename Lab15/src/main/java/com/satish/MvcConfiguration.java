@@ -1,5 +1,6 @@
 package com.satish;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,20 +32,19 @@ public class MvcConfiguration extends WebSecurityConfigurerAdapter implements We
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
-
+	
+	@Autowired
 	public void configureGloabal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
-		.withUser("satish")
-		.password("1234")
-		.roles("ADMIN");
+		.withUser("satish").password("{noop}1234").roles("ADMIN");
 		auth.inMemoryAuthentication()
-		.withUser("vas").password("vas").roles("STOREKEEPER");
+		.withUser("vas").password("{noop}vas").roles("STOREKEEPER");
 		auth.inMemoryAuthentication()
-		.withUser("sri").password("sri").roles("CUSTOMER");
+		.withUser("sri").password("{noop}sri").roles("CUSTOMER");
 		auth.inMemoryAuthentication()
-		.withUser("sd").password("sd").roles("CUSTOMER");
+		.withUser("sd").password("{noop}sd").roles("CUSTOMER");
 		auth.inMemoryAuthentication()
-		.withUser("super").password("{nope}super").roles("CUSTOMER","ADMIN");
+		.withUser("super").password("{noop}super").roles("CUSTOMER","ADMIN");
 	}
 
 	@Override
@@ -53,6 +53,6 @@ public class MvcConfiguration extends WebSecurityConfigurerAdapter implements We
 		.antMatchers("/deleteBook**").access("hasRole('ROLE_ADMIN')")
 		.antMatchers("/addBook**").access("hasAnyRole('ROLE_ADMIN','ROLE_STOREKEEPER')")
 		.antMatchers("/editBook").access("hasAnyRole('ROLE_CUSTOMER')").and().formLogin()
-		.and().exceptionHandling().accessDeniedPage("/WEB-INF/views/invalidAccess.sjp");
+		.and().exceptionHandling().accessDeniedPage("/WEB-INF/views/invalidAccess.jsp");
 	}
 }
